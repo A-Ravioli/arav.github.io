@@ -4,10 +4,22 @@ import './CreationImage.css';
 
 lineSpinner.register();
 
-const CreationImage = () => {
+interface CreationImageProps {
+  onAnimationComplete: () => void;
+}
+
+const CreationImage = ({ onAnimationComplete }: CreationImageProps) => {
   const imageRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isZooming, setIsZooming] = useState(false);
+
+  // Get CSS variable values
+  const getAnimationDuration = (variableName: string): number => {
+    const value = getComputedStyle(document.documentElement)
+      .getPropertyValue(variableName)
+      .trim();
+    return parseFloat(value) || 1;
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,13 +36,28 @@ const CreationImage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isZooming) {
+      const zoomDuration = getAnimationDuration('--zoom-duration') * 1000; // Convert to milliseconds
+      
+      // Dispatch custom event when zoom animation ends
+      const timer = setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('zoomComplete'));
+        onAnimationComplete();
+      }, zoomDuration);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isZooming, onAnimationComplete]);
+
   const handleClick = () => {
     setIsLoading(true);
     
-    // After 3 seconds of loading
+    const loadingDuration = getAnimationDuration('--loading-duration') * 1000; // Convert to milliseconds
+    
     setTimeout(() => {
       setIsZooming(true);
-    }, 3000);
+    }, loadingDuration);
   };
 
   return (

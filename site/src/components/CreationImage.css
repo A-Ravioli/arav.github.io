@@ -75,7 +75,7 @@
 }
 
 .start-button.zooming {
-  animation: zoom-to-center 6s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+  animation: zoom-to-center var(--zoom-duration) cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
 }
 
 .start-button.zooming::before {
@@ -86,15 +86,15 @@
   background: #000000;
   border-radius: 50%;
   z-index: -1;
-  animation: zoom-background 6s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+  animation: zoom-background var(--zoom-duration) cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
 }
 
 .start-button.zooming l-line-spinner {
-  animation: spinner-zoom 6s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+  animation: spinner-zoom var(--zoom-duration) cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
 }
 
 .image-container.zooming .creation-image {
-  animation: zoom-background-image 6s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+  animation: zoom-background-image var(--zoom-duration) cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
 }
 
 @keyframes zoom-to-center {
