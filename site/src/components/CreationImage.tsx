@@ -7,6 +7,7 @@ lineSpinner.register();
 const CreationImage = () => {
   const imageRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isZooming, setIsZooming] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,22 +26,23 @@ const CreationImage = () => {
 
   const handleClick = () => {
     setIsLoading(true);
-    // Simulated loading - you can replace this with actual loading logic
+    
+    // After 3 seconds of loading
     setTimeout(() => {
-      setIsLoading(false);
+      setIsZooming(true);
     }, 3000);
   };
 
   return (
-    <div className="image-container" ref={imageRef}>
+    <div className={`image-container ${isZooming ? 'zooming' : ''}`} ref={imageRef}>
       <div className="creation-image" />
       <button 
-        className={`start-button ${isLoading ? 'loading' : ''}`}
+        className={`start-button ${isLoading || isZooming ? 'loading' : ''} ${isZooming ? 'zooming' : ''}`}
         onClick={handleClick}
-        disabled={isLoading}
+        disabled={isLoading || isZooming}
       >
-        {!isLoading && <span className="button-text">open</span>}
-        {isLoading && (
+        {!isLoading && !isZooming && <span className="button-text">open</span>}
+        {(isLoading || isZooming) && (
           <l-line-spinner
             size="40"
             stroke="3"

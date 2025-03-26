@@ -17,6 +17,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   transition: transform 0.3s ease-out;
+  transform-origin: center center;
 }
 
 .start-button {
@@ -61,6 +62,87 @@
   cursor: default;
   transform: scale(1);
   box-shadow: none;
+}
+
+.start-button.loading::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #000000;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.start-button.zooming {
+  animation: zoom-to-center 6s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+}
+
+.start-button.zooming::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #000000;
+  border-radius: 50%;
+  z-index: -1;
+  animation: zoom-background 6s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+}
+
+.start-button.zooming l-line-spinner {
+  animation: spinner-zoom 6s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+}
+
+.image-container.zooming .creation-image {
+  animation: zoom-background-image 6s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+}
+
+@keyframes zoom-to-center {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(100);
+  }
+  100% {
+    transform: scale(500);
+  }
+}
+
+@keyframes zoom-background {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(25);
+  }
+  100% {
+    transform: scale(50);
+  }
+}
+
+@keyframes spinner-zoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(3);
+  }
+}
+
+@keyframes zoom-background-image {
+  0% {
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    transform: scale(100) translateZ(0);
+  }
+  100% {
+    transform: scale(200) translateZ(0);
+  }
 }
 
 @media (max-width: 768px) {
