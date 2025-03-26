@@ -1,5 +1,5 @@
 :root {
-  --base-animation-speed: 1;
+  --base-animation-speed: 1.2;
   --loading-duration: calc(4.5s * var(--base-animation-speed));
   --zoom-duration: calc(9s * var(--base-animation-speed));
   --fade-duration: calc(1s * var(--base-animation-speed));
